@@ -5,7 +5,7 @@ add_action('wp_head', 'hubspot_analytics_tracking');
 function hubspot_analytics_tracking() {
     ?>
     <!-- HubSpot Analytics Tracking Code -->
-    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/48948311.js"></script>
+    <script type="text/javascript" id="hs-script-loader" async defer src="YOUR_HUBSPOT_PORTAL_ID"></script>
     <?php
 }
 
