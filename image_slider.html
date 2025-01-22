@@ -1,0 +1,97 @@
+<!-- Slider HTML Structure -->
+<div class="slider-container">
+  {% if module.slider_images %}
+    <div class="slider">
+      {% for image in module.slider_images %}
+        <div class="slide">
+          <img src="{{ image.image | img_url('full') }}" alt="{{ image.alt_text }}">
+          {% if image.link %}
+            <a href="{{ image.link }}" class="slider-link"></a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No images found for the slider.</p>
+  {% endif %}
+</div>
+
+<!-- Add Slider Navigation -->
+<div class="slider-navigation">
+  <button class="prev">Previous</button>
+  <button class="next">Next</button>
+</div>
+
+<!-- CSS for the Slider -->
+<style>
+  .slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .slider {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .slide {
+    min-width: 100%;
+    position: relative;
+  }
+
+  .slider img {
+    width: 100%;
+    display: block;
+  }
+
+  .slider-navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+  }
+
+  .prev, .next {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .slider-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+</style>
+
+<!-- JavaScript for Slider Functionality -->
+<script>
+  var currentSlide = 0;
+  var slides = document.querySelectorAll('.slider .slide');
+  var totalSlides = slides.length;
+
+  // Next Slide
+  document.querySelector('.next').addEventListener('click', function() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateSlider();
+  });
+
+  // Previous Slide
+  document.querySelector('.prev').addEventListener('click', function() {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    updateSlider();
+  });
+
+  // Update the Slider's transform based on the current slide
+  function updateSlider() {
+    document.querySelector('.slider').style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+  }
+</script>
